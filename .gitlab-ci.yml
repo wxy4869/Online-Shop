@@ -1,0 +1,10 @@
+deploy-blog4:
+  stage: deploy
+  script:
+    - rsync -arv --delete  --exclude="*.sqlite3" ./blog4 /
+    - cd /blog4
+    - bundle install
+    - rails db:migrate
+    - sv restart blog4
+  only:
+    - blog4
