@@ -420,3 +420,413 @@ Processing by BlogsController#show as HTML
 Completed 200 OK in 8ms (Views: 6.9ms | ActiveRecord: 0.2ms | Allocations: 4013)
 
 
+Started GET "/" for 127.0.0.1 at 2022-12-27 11:14:22 +0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BlogsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mBlog Load (0.8ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:3
+  Rendered blogs/index.html.erb within layouts/application (Duration: 31.1ms | Allocations: 6087)
+  Rendered layout layouts/application.html.erb (Duration: 100.2ms | Allocations: 28133)
+Completed 200 OK in 113ms (Views: 103.8ms | ActiveRecord: 1.4ms | Allocations: 31978)
+
+
+Started GET "/blogs/1" for 127.0.0.1 at 2022-12-27 11:14:25 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBlog Load (0.2ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 1.1ms | Allocations: 193)
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 1]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of templates [0 times] (Duration: 0.0ms | Allocations: 32)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 30.0ms | Allocations: 10165)
+  Rendered layout layouts/application.html.erb (Duration: 32.0ms | Allocations: 11756)
+Completed 200 OK in 37ms (Views: 31.5ms | ActiveRecord: 1.2ms | Allocations: 14480)
+
+
+Started POST "/blogs/1/comments" for 127.0.0.1 at 2022-12-27 11:14:29 +0800
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "comment"=>{"content"=>"hhh"}, "commit"=>"Add Comment", "blog_id"=>"1"}
+  [1m[36mBlog Load (1.0ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/comments_controller.rb:24:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+  [1m[36mComment Create (6.5ms)[0m  [1m[32mINSERT INTO "comments" ("blog_id", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["blog_id", 1], ["content", "hhh"], ["created_at", "2022-12-27 03:14:29.914493"], ["updated_at", "2022-12-27 03:14:29.914493"]]
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+Redirected to http://localhost:3000/blogs/1
+Completed 302 Found in 34ms (ActiveRecord: 9.2ms | Allocations: 5312)
+
+
+Started GET "/blogs/1" for 127.0.0.1 at 2022-12-27 11:14:29 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 0.1ms | Allocations: 24)
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 1]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of comments/_comment.html.erb [1 times] (Duration: 2.4ms | Allocations: 971)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 8.9ms | Allocations: 3179)
+  Rendered layout layouts/application.html.erb (Duration: 11.5ms | Allocations: 4745)
+Completed 200 OK in 14ms (Views: 11.9ms | ActiveRecord: 0.3ms | Allocations: 5511)
+
+
+Started POST "/blogs/1/comments" for 127.0.0.1 at 2022-12-27 11:14:33 +0800
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "comment"=>{"content"=>"aaa"}, "commit"=>"Add Comment", "blog_id"=>"1"}
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/comments_controller.rb:24:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+  [1m[36mComment Create (2.5ms)[0m  [1m[32mINSERT INTO "comments" ("blog_id", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["blog_id", 1], ["content", "aaa"], ["created_at", "2022-12-27 03:14:33.337755"], ["updated_at", "2022-12-27 03:14:33.337755"]]
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+Redirected to http://localhost:3000/blogs/1
+Completed 302 Found in 12ms (ActiveRecord: 4.3ms | Allocations: 2735)
+
+
+Started GET "/blogs/1" for 127.0.0.1 at 2022-12-27 11:14:33 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBlog Load (0.3ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 0.1ms | Allocations: 21)
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 1]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of comments/_comment.html.erb [2 times] (Duration: 2.8ms | Allocations: 744)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 9.5ms | Allocations: 2586)
+  Rendered layout layouts/application.html.erb (Duration: 25.8ms | Allocations: 4058)
+Completed 200 OK in 30ms (Views: 26.7ms | ActiveRecord: 0.7ms | Allocations: 4761)
+
+
+Started DELETE "/blogs/1" for 127.0.0.1 at 2022-12-27 11:14:37 +0800
+Processing by BlogsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"1"}
+  [1m[36mBlog Load (0.2ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 1]]
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+  [1m[36mComment Destroy (1.6ms)[0m  [1m[31mDELETE FROM "comments" WHERE "comments"."id" = ?[0m  [["id", 1]]
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+  [1m[36mComment Destroy (0.2ms)[0m  [1m[31mDELETE FROM "comments" WHERE "comments"."id" = ?[0m  [["id", 2]]
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+  [1m[36mBlog Destroy (0.8ms)[0m  [1m[31mDELETE FROM "blogs" WHERE "blogs"."id" = ?[0m  [["id", 1]]
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+Redirected to http://localhost:3000/blogs
+Completed 302 Found in 21ms (ActiveRecord: 4.4ms | Allocations: 4946)
+
+
+Started GET "/blogs" for 127.0.0.1 at 2022-12-27 11:14:37 +0800
+Processing by BlogsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mBlog Load (0.3ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:3
+  Rendered blogs/index.html.erb within layouts/application (Duration: 2.4ms | Allocations: 573)
+  Rendered layout layouts/application.html.erb (Duration: 6.2ms | Allocations: 2282)
+Completed 200 OK in 8ms (Views: 6.6ms | ActiveRecord: 0.3ms | Allocations: 2531)
+
+
+Started GET "/blogs" for 127.0.0.1 at 2022-12-27 11:14:43 +0800
+Processing by BlogsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:3
+  Rendered blogs/index.html.erb within layouts/application (Duration: 1.5ms | Allocations: 563)
+  Rendered layout layouts/application.html.erb (Duration: 3.9ms | Allocations: 2289)
+Completed 200 OK in 5ms (Views: 4.5ms | ActiveRecord: 0.1ms | Allocations: 2534)
+
+
+Started GET "/blogs/new" for 127.0.0.1 at 2022-12-27 11:14:50 +0800
+Processing by BlogsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/new.html.erb within layouts/application
+  Rendered blogs/_form.html.erb (Duration: 22.4ms | Allocations: 13155)
+  Rendered blogs/new.html.erb within layouts/application (Duration: 23.5ms | Allocations: 13448)
+  Rendered layout layouts/application.html.erb (Duration: 25.7ms | Allocations: 15035)
+Completed 200 OK in 27ms (Views: 26.2ms | ActiveRecord: 0.0ms | Allocations: 15375)
+
+
+Started POST "/blogs" for 127.0.0.1 at 2022-12-27 11:14:54 +0800
+Processing by BlogsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "blog"=>{"title"=>"My First Blog", "content"=>"?"}, "commit"=>"Create Blog"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/blogs_controller.rb:27:in `block in create'
+  [1m[36mBlog Create (0.5ms)[0m  [1m[32mINSERT INTO "blogs" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "My First Blog"], ["content", "?"], ["created_at", "2022-12-27 03:14:54.542497"], ["updated_at", "2022-12-27 03:14:54.542497"]]
+  ↳ app/controllers/blogs_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/blogs_controller.rb:27:in `block in create'
+Redirected to http://localhost:3000/blogs/2
+Completed 302 Found in 8ms (ActiveRecord: 1.7ms | Allocations: 2662)
+
+
+Started GET "/blogs/2" for 127.0.0.1 at 2022-12-27 11:14:54 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 0.1ms | Allocations: 21)
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 2]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of templates [0 times] (Duration: 0.1ms | Allocations: 17)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 5.2ms | Allocations: 1909)
+  Rendered layout layouts/application.html.erb (Duration: 7.9ms | Allocations: 3376)
+Completed 200 OK in 10ms (Views: 8.0ms | ActiveRecord: 0.4ms | Allocations: 4121)
+
+
+Started GET "/blogs" for 127.0.0.1 at 2022-12-27 11:14:56 +0800
+Processing by BlogsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:3
+  Rendered blogs/index.html.erb within layouts/application (Duration: 1.6ms | Allocations: 805)
+  Rendered layout layouts/application.html.erb (Duration: 4.5ms | Allocations: 2518)
+Completed 200 OK in 6ms (Views: 4.9ms | ActiveRecord: 0.1ms | Allocations: 2764)
+
+
+Started GET "/blogs/2" for 127.0.0.1 at 2022-12-27 11:15:01 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mBlog Load (0.3ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 0.1ms | Allocations: 19)
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 2]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of templates [0 times] (Duration: 0.0ms | Allocations: 13)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 3.4ms | Allocations: 1793)
+  Rendered layout layouts/application.html.erb (Duration: 5.7ms | Allocations: 3259)
+Completed 200 OK in 9ms (Views: 6.1ms | ActiveRecord: 0.4ms | Allocations: 3959)
+
+
+Started POST "/blogs/2/comments" for 127.0.0.1 at 2022-12-27 11:15:05 +0800
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "comment"=>{"content"=>"hhh"}, "commit"=>"Add Comment", "blog_id"=>"2"}
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/comments_controller.rb:24:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+  [1m[36mComment Create (0.5ms)[0m  [1m[32mINSERT INTO "comments" ("blog_id", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["blog_id", 2], ["content", "hhh"], ["created_at", "2022-12-27 03:15:05.100346"], ["updated_at", "2022-12-27 03:15:05.100346"]]
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+Redirected to http://localhost:3000/blogs/2
+Completed 302 Found in 12ms (ActiveRecord: 1.6ms | Allocations: 2710)
+
+
+Started GET "/blogs/2" for 127.0.0.1 at 2022-12-27 11:15:05 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mBlog Load (0.2ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 0.1ms | Allocations: 19)
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 2]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of comments/_comment.html.erb [1 times] (Duration: 1.3ms | Allocations: 410)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 7.2ms | Allocations: 2244)
+  Rendered layout layouts/application.html.erb (Duration: 9.4ms | Allocations: 3710)
+Completed 200 OK in 12ms (Views: 10.0ms | ActiveRecord: 0.3ms | Allocations: 4410)
+
+
+Started GET "/blogs" for 127.0.0.1 at 2022-12-27 11:15:09 +0800
+Processing by BlogsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:3
+  Rendered blogs/index.html.erb within layouts/application (Duration: 1.4ms | Allocations: 784)
+  Rendered layout layouts/application.html.erb (Duration: 3.3ms | Allocations: 2479)
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.1ms | Allocations: 2724)
+
+
+Started GET "/blogs/2" for 127.0.0.1 at 2022-12-27 11:15:12 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 0.1ms | Allocations: 19)
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 2]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of comments/_comment.html.erb [1 times] (Duration: 1.2ms | Allocations: 406)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 6.4ms | Allocations: 2219)
+  Rendered layout layouts/application.html.erb (Duration: 8.8ms | Allocations: 3685)
+Completed 200 OK in 11ms (Views: 9.3ms | ActiveRecord: 0.3ms | Allocations: 4385)
+
+
+Started GET "/blogs" for 127.0.0.1 at 2022-12-27 11:15:14 +0800
+Processing by BlogsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:3
+  Rendered blogs/index.html.erb within layouts/application (Duration: 1.7ms | Allocations: 784)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | Allocations: 2467)
+Completed 200 OK in 6ms (Views: 5.7ms | ActiveRecord: 0.1ms | Allocations: 2712)
+
+
+Started GET "/blogs/2" for 127.0.0.1 at 2022-12-27 11:15:15 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mBlog Load (0.1ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 0.1ms | Allocations: 19)
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 2]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of comments/_comment.html.erb [1 times] (Duration: 1.1ms | Allocations: 408)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 7.8ms | Allocations: 2239)
+  Rendered layout layouts/application.html.erb (Duration: 10.0ms | Allocations: 3705)
+Completed 200 OK in 12ms (Views: 10.0ms | ActiveRecord: 0.7ms | Allocations: 4405)
+
+
+Started DELETE "/blogs/2" for 127.0.0.1 at 2022-12-27 11:16:07 +0800
+Processing by BlogsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"2"}
+  [1m[36mBlog Load (0.3ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 2]]
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+  [1m[36mComment Destroy (0.5ms)[0m  [1m[31mDELETE FROM "comments" WHERE "comments"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+  [1m[36mBlog Destroy (0.3ms)[0m  [1m[31mDELETE FROM "blogs" WHERE "blogs"."id" = ?[0m  [["id", 2]]
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/blogs_controller.rb:52:in `destroy'
+Redirected to http://localhost:3000/blogs
+Completed 302 Found in 14ms (ActiveRecord: 2.3ms | Allocations: 3951)
+
+
+Started GET "/blogs" for 127.0.0.1 at 2022-12-27 11:16:07 +0800
+Processing by BlogsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mBlog Load (0.2ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:3
+  Rendered blogs/index.html.erb within layouts/application (Duration: 1.5ms | Allocations: 563)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | Allocations: 2277)
+Completed 200 OK in 8ms (Views: 5.9ms | ActiveRecord: 0.2ms | Allocations: 2522)
+
+
+Started GET "/blogs" for 127.0.0.1 at 2022-12-27 11:16:33 +0800
+Processing by BlogsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mBlog Load (0.3ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:3
+  Rendered blogs/index.html.erb within layouts/application (Duration: 3.5ms | Allocations: 948)
+  Rendered layout layouts/application.html.erb (Duration: 7.3ms | Allocations: 3063)
+Completed 200 OK in 9ms (Views: 8.3ms | ActiveRecord: 0.3ms | Allocations: 3846)
+
+
+Started GET "/blogs/new" for 127.0.0.1 at 2022-12-27 11:16:34 +0800
+Processing by BlogsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/new.html.erb within layouts/application
+  Rendered blogs/_form.html.erb (Duration: 4.8ms | Allocations: 1498)
+  Rendered blogs/new.html.erb within layouts/application (Duration: 6.3ms | Allocations: 1765)
+  Rendered layout layouts/application.html.erb (Duration: 8.2ms | Allocations: 3239)
+Completed 200 OK in 9ms (Views: 8.6ms | ActiveRecord: 0.0ms | Allocations: 3563)
+
+
+Started POST "/blogs" for 127.0.0.1 at 2022-12-27 11:16:38 +0800
+Processing by BlogsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "blog"=>{"title"=>"My First Blog", "content"=>"m"}, "commit"=>"Create Blog"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/blogs_controller.rb:27:in `block in create'
+  [1m[36mBlog Create (0.8ms)[0m  [1m[32mINSERT INTO "blogs" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "My First Blog"], ["content", "m"], ["created_at", "2022-12-27 03:16:38.820448"], ["updated_at", "2022-12-27 03:16:38.820448"]]
+  ↳ app/controllers/blogs_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/blogs_controller.rb:27:in `block in create'
+Redirected to http://localhost:3000/blogs/3
+Completed 302 Found in 7ms (ActiveRecord: 1.7ms | Allocations: 2414)
+
+
+Started GET "/blogs/3" for 127.0.0.1 at 2022-12-27 11:16:38 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mBlog Load (0.2ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 1.0ms | Allocations: 141)
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 3]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of templates [0 times] (Duration: 0.0ms | Allocations: 17)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 7.6ms | Allocations: 2366)
+  Rendered layout layouts/application.html.erb (Duration: 9.4ms | Allocations: 3832)
+Completed 200 OK in 12ms (Views: 9.7ms | ActiveRecord: 0.3ms | Allocations: 4621)
+
+
+Started POST "/blogs/3/comments" for 127.0.0.1 at 2022-12-27 11:16:41 +0800
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "comment"=>{"content"=>"MM"}, "commit"=>"Add Comment", "blog_id"=>"3"}
+  [1m[36mBlog Load (0.5ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/comments_controller.rb:24:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+  [1m[36mComment Create (0.6ms)[0m  [1m[32mINSERT INTO "comments" ("blog_id", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["blog_id", 3], ["content", "MM"], ["created_at", "2022-12-27 03:16:41.079956"], ["updated_at", "2022-12-27 03:16:41.079956"]]
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/comments_controller.rb:29:in `block in create'
+Redirected to http://localhost:3000/blogs/3
+Completed 302 Found in 13ms (ActiveRecord: 2.3ms | Allocations: 2692)
+
+
+Started GET "/blogs/3" for 127.0.0.1 at 2022-12-27 11:16:41 +0800
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mBlog Load (0.2ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs" WHERE "blogs"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:63:in `set_blog'
+  Rendering layout layouts/application.html.erb
+  Rendering blogs/show.html.erb within layouts/application
+  Rendered blogs/_blog.html.erb (Duration: 0.1ms | Allocations: 19)
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = ?[0m  [["blog_id", 3]]
+  ↳ app/views/blogs/show.html.erb:14
+  Rendered collection of comments/_comment.html.erb [1 times] (Duration: 35.1ms | Allocations: 16725)
+  Rendered blogs/show.html.erb within layouts/application (Duration: 38.4ms | Allocations: 18251)
+  Rendered layout layouts/application.html.erb (Duration: 38.6ms | Allocations: 18331)
+Completed 500 Internal Server Error in 42ms (ActiveRecord: 0.3ms | Allocations: 19042)
+
+
+  
+ActionView::Template::Error (undefined method `comment_path' for #<ActionView::Base:0x000000000087c8>
+
+              target.public_send(method, *args)
+                    ^^^^^^^^^^^^
+Did you mean?  font_path):
+    3:     <strong>Posted <%= time_ago_in_words(comment.created_at) %></strong>
+    4:     <br/>
+    5:     <%= comment.content %>
+    6:     <%= button_to "Destroy this comment", comment, method: :delete %>
+    7:   </p>
+    8: </div>
+  
+app/views/comments/_comment.html.erb:6
+app/views/blogs/show.html.erb:14
