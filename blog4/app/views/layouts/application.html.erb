@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Blog4</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Blog4</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+<div id="banner"><h1>My Blogs IV</h1></div>
+<div id="left-panel">
+  <h2>About The Author</h2>
+  <div>&ensp;&ensp;&ensp;&ensp;Author generally refers to the creator of literary, artistic and scientific works, sometimes also refers to the founder of a certain theory, or the organizer or planner of a certain event. In the copyright laws of the Soviet Union, France, Federal Germany, Spain and other countries, the author refers to a natural person who directly engages in literary and artistic creation through his own independent conception and application of his own skills and methods, and produces works reflecting the personal characteristics of the creator. These include novelists, poets, prose writers, playwrights, composers, lyricists, journalists, painters, calligraphers, sculptors, craft designers, architects, photographers, translators, computer programmers, and so on. Copyright laws in the United States, Japan and other countries also recognize legal persons as authors.</div>
+</div>
+<div id="main-panel"><%= yield %></div>
+<div id="footer">Copyright wxy &copy; 2022</div>
+</body>
 </html>
