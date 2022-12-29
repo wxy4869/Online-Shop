@@ -181,3 +181,184 @@ FOREIGN KEY ("product_feature_id")
   [1m[36mTRANSACTION (0.9ms)[0m  [1m[36mcommit transaction[0m
   [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
   [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2022-12-29 11:32:47 +0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/3.1.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/3.1.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 2.1ms | Allocations: 475)
+Completed 200 OK in 15ms (Views: 5.4ms | ActiveRecord: 0.0ms | Allocations: 3471)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-12-29 11:32:49 +0800
+Processing by Devise::RegistrationsController#new as HTML
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.0ms | Allocations: 2083)
+
+
+  
+NoMethodError (undefined method `for' for #<Devise::ParameterSanitizer:0x000000010d597960 @auth_keys=[:username], @params=#<ActionController::Parameters {"controller"=>"devise/registrations", "action"=>"new"} permitted: false>, @resource_name=:user, @permitted={:sign_in=>[:username, :password, :remember_me], :sign_up=>[:username, :password, :password_confirmation], :account_update=>[:username, :password, :password_confirmation, :current_password]}>
+
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :password, :password_confirmation, :remember_me) }
+                              ^^^^):
+  
+app/controllers/application_controller.rb:7:in `configure_permitted_parameters'
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-12-29 11:33:46 +0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.5ms | Allocations: 658)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 35.8ms | Allocations: 8506)
+  Rendered layout layouts/application.html.erb (Duration: 396.3ms | Allocations: 89851)
+Completed 200 OK in 410ms (Views: 399.6ms | ActiveRecord: 2.1ms | Allocations: 97668)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-12-29 11:34:34 +0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.5ms | Allocations: 665)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 27.3ms | Allocations: 6171)
+  Rendered layout layouts/application.html.erb (Duration: 64.7ms | Allocations: 33617)
+Completed 200 OK in 90ms (Views: 72.1ms | ActiveRecord: 0.5ms | Allocations: 43915)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-12-29 11:34:37 +0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | Allocations: 102)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 2.1ms | Allocations: 1339)
+  Rendered layout layouts/application.html.erb (Duration: 4.3ms | Allocations: 2943)
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 0.0ms | Allocations: 3643)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-12-29 11:38:45 +0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | Allocations: 100)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 1.9ms | Allocations: 1212)
+  Rendered layout layouts/application.html.erb (Duration: 785.1ms | Allocations: 55333)
+Completed 200 OK in 787ms (Views: 785.7ms | ActiveRecord: 0.0ms | Allocations: 55903)
+
+
+Started GET "/" for 127.0.0.1 at 2022-12-29 11:45:11 +0800
+  [1m[36mActiveRecord::SchemaMigration Pluck (2.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/3.1.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/3.1.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 2.0ms | Allocations: 475)
+Completed 200 OK in 19ms (Views: 5.5ms | ActiveRecord: 0.0ms | Allocations: 3471)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-12-29 11:45:16 +0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.9ms | Allocations: 662)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 21.9ms | Allocations: 5171)
+  Rendered layout layouts/application.html.erb (Duration: 1062.4ms | Allocations: 191455)
+Completed 200 OK in 1084ms (Views: 1065.8ms | ActiveRecord: 0.9ms | Allocations: 199628)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-12-29 11:45:24 +0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.2ms | Allocations: 295)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 19.2ms | Allocations: 2534)
+  Rendered layout layouts/application.html.erb (Duration: 35.1ms | Allocations: 8961)
+Completed 200 OK in 46ms (Views: 42.5ms | ActiveRecord: 0.0ms | Allocations: 10391)
+
+
+Started GET "/users/password/new" for 127.0.0.1 at 2022-12-29 11:45:31 +0800
+Processing by Devise::PasswordsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/passwords/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | Allocations: 188)
+  Rendered devise/passwords/new.html.erb within layouts/application (Duration: 4.5ms | Allocations: 1365)
+  Rendered layout layouts/application.html.erb (Duration: 24.2ms | Allocations: 7792)
+Completed 200 OK in 31ms (Views: 28.8ms | ActiveRecord: 0.0ms | Allocations: 9076)
+
+
+Started POST "/users/password" for 127.0.0.1 at 2022-12-29 11:45:36 +0800
+Processing by Devise::PasswordsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"username"=>""}, "commit"=>"Send me reset password instructions"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/passwords/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | Allocations: 166)
+  Rendered devise/passwords/new.html.erb within layouts/application (Duration: 3.1ms | Allocations: 1492)
+  Rendered layout layouts/application.html.erb (Duration: 18.0ms | Allocations: 7862)
+Completed 200 OK in 29ms (Views: 18.8ms | ActiveRecord: 0.0ms | Allocations: 10228)
+
+
+Started POST "/users/password" for 127.0.0.1 at 2022-12-29 11:47:05 +0800
+Processing by Devise::PasswordsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"username"=>""}, "commit"=>"Send me reset password instructions"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/passwords/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.0ms | Allocations: 649)
+  Rendered devise/passwords/new.html.erb within layouts/application (Duration: 29.1ms | Allocations: 14085)
+  Rendered layout layouts/application.html.erb (Duration: 40.7ms | Allocations: 20659)
+Completed 200 OK in 51ms (Views: 43.5ms | ActiveRecord: 0.0ms | Allocations: 23034)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-12-29 11:47:07 +0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | Allocations: 178)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 4.2ms | Allocations: 1889)
+  Rendered layout layouts/application.html.erb (Duration: 23.9ms | Allocations: 8308)
+Completed 200 OK in 28ms (Views: 26.4ms | ActiveRecord: 0.0ms | Allocations: 9412)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-12-29 11:47:09 +0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | Allocations: 113)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 11.1ms | Allocations: 1830)
+  Rendered layout layouts/application.html.erb (Duration: 55.5ms | Allocations: 8249)
+Completed 200 OK in 61ms (Views: 60.1ms | ActiveRecord: 0.0ms | Allocations: 9329)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-12-29 11:47:11 +0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 5.4ms | Allocations: 166)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 16.6ms | Allocations: 1286)
+  Rendered layout layouts/application.html.erb (Duration: 80.3ms | Allocations: 7543)
+Completed 200 OK in 86ms (Views: 81.1ms | ActiveRecord: 0.0ms | Allocations: 8271)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-12-29 11:49:46 +0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | Allocations: 121)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.2ms | Allocations: 1487)
+  Rendered layout layouts/application.html.erb (Duration: 12.0ms | Allocations: 7912)
+Completed 200 OK in 19ms (Views: 13.0ms | ActiveRecord: 1.6ms | Allocations: 12191)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-12-29 11:49:54 +0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | Allocations: 123)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 2.8ms | Allocations: 1474)
+  Rendered layout layouts/application.html.erb (Duration: 16.7ms | Allocations: 7898)
+Completed 200 OK in 22ms (Views: 18.3ms | ActiveRecord: 0.0ms | Allocations: 9041)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-12-29 11:49:56 +0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | Allocations: 96)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 1.8ms | Allocations: 1215)
+  Rendered layout layouts/application.html.erb (Duration: 11.9ms | Allocations: 7472)
+Completed 200 OK in 14ms (Views: 12.6ms | ActiveRecord: 0.0ms | Allocations: 8181)
+
+
