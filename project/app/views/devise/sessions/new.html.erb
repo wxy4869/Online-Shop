@@ -1,28 +1,53 @@
-<h1><%= t('.sign_in') %></h1>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-group">
-    <%= f.label :username %>
-    <%= f.text_field :username, autofocus: true, autocomplete: 'username', class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="form-group form-check">
-      <%= f.check_box :remember_me, class: 'form-check-input' %>
-      <%= f.label :remember_me, class: 'form-check-label' do %>
-        <%= resource.class.human_attribute_name('remember_me') %>
+<div class="container">
+  <div class="row">
+    <!-- 错误提示 -->
+    <br><br>
+    <div class="col-md-offset-3 col-md-6">
+      <% if flash[:notice] %>
+        <div class="alert alert-success global-notification">
+          <p><%= notice %></p>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger global-notification">
+          <p><%= alert %></p>
+        </div>
       <% end %>
     </div>
-  <% end %>
 
-  <div class="form-group">
-    <%= f.submit  t('.sign_in'), class: 'btn btn-primary' %>
+    <!-- 登录 -->
+    <div class="col-md-offset-3 col-md-6">
+      <div class="page-header">
+        <h1>登录</h1>
+      </div>
+    </div>
+
+    <!-- 表单 -->
+    <div class="col-md-offset-3 col-md-6">
+      <div class="form-horizontal center-block" style="width: 90%">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-group">
+            <%= f.label :'用户名' %>
+            <%= f.text_field :username, required: true, autofocus: true, autocomplete: 'username', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label '密码' %>
+            <%= f.password_field :password, required: true, autocomplete: 'current-password', class: 'form-control' %>
+          </div>
+          <% if devise_mapping.rememberable? %>
+            <div class="form-group form-check">
+              <%= f.check_box :remember_me, class: 'form-check-input' %>
+              <%= f.label :remember_me, class: 'form-check-label' do %>
+                <%= resource.class.human_attribute_name('记住此账号') %>
+              <% end %>
+            </div>
+          <% end %>
+          <div class="form-group">
+            <%= f.submit '登录', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+        <div><%= render 'devise/shared/links' %></div>
+      </div>
+    </div>
   </div>
-<% end %>
-
-<%= render 'devise/shared/links' %>
+</div>

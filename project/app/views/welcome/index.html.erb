@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row clearfix">
+    <!-- 欢迎 -->
+    <div class="col-md-12 column">
+      <div class="page-header">
+        <h1>欢迎来到 WXY 在线商城</h1>
+      </div>
+    </div>
+
+    <!-- 轮播图 -->
+    <div class="col-md-12 column">
+      <div class="carousel slide" id="carousel-480866">
+        <ol class="carousel-indicators">
+          <li data-slide-to="0" data-target="#carousel-480866">
+          </li>
+          <li data-slide-to="1" data-target="#carousel-480866">
+          </li>
+          <li data-slide-to="2" data-target="#carousel-480866" class="active">
+          </li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="item">
+            <%= image_tag("static/welcome01.jpg")%>
+            <div class="carousel-caption">
+              <h4></h4>
+              <p></p>
+            </div>
+          </div>
+          <div class="item">
+            <%= image_tag("static/welcome02.jpg")%>
+            <div class="carousel-caption">
+              <h4></h4>
+              <p></p>
+            </div>
+          </div>
+          <div class="item active">
+            <%= image_tag("static/welcome03.jpg")%>
+            <div class="carousel-caption">
+              <h4></h4>
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <a class="left carousel-control" href="#carousel-480866" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        <a class="right carousel-control" href="#carousel-480866" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div>
+    </div>
+
+    <!-- 热门商品 -->
+    <div class="col-md-12 column">
+      <div class="page-header">
+        <h2>热门商品</h2>
+      </div>
+    </div>
+    <div class="col-md-12 column">
+      <div class="container">
+        <% @products.each do |product| %>
+          <div class="col-md-3">
+            <div class="card" style="height: fit-content">
+              <%= image_tag(product.url, class: "card-img-top", width: "90%") %>
+              <div class="card-body">
+                <h4 class="card-title" style="height: 60px"><%= product.name %></h4>
+                <h4 class="card-text text-danger">售价：<%= number_with_precision(product.price, :precision => 2) %> ¥</h4>
+                <%= link_to "详情", product, class:"btn btn-primary h-5"%>
+              </div>
+            </div>
+            <br><br>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

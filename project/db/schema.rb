@@ -54,7 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_024518) do
 
   create_table "product_features", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.string "url", default: "", null: false
+    t.string "url", default: "static/default_product.jpg", null: false
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_024518) do
     t.text "detail"
     t.decimal "price", default: "0.0", null: false
     t.integer "sales", default: 0, null: false
+    t.string "url", default: "static/default_product.jpg", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -74,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_024518) do
     t.string "username", default: "", null: false
     t.string "email", default: ""
     t.string "encrypted_password", default: "", null: false
+    t.string "avatar", default: "static/default_avatar.jpg", null: false
     t.integer "status", default: 0, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
