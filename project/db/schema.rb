@@ -23,10 +23,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_024518) do
 
   create_table "collects", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "product_feature_id", null: false
+    t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_feature_id"], name: "index_collects_on_product_feature_id"
+    t.index ["product_id"], name: "index_collects_on_product_id"
     t.index ["user_id"], name: "index_collects_on_user_id"
   end
 
@@ -54,7 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_024518) do
 
   create_table "product_features", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.string "url", default: "static/default_product.jpg", null: false
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -88,7 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_024518) do
 
   add_foreign_key "carts", "product_features"
   add_foreign_key "carts", "users"
-  add_foreign_key "collects", "product_features"
+  add_foreign_key "collects", "products"
   add_foreign_key "collects", "users"
   add_foreign_key "order_details", "orders"
   add_foreign_key "orders", "users"

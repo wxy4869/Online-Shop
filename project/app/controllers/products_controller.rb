@@ -9,6 +9,9 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    if user_signed_in?
+      @collect = Collect.find_by(user_id: current_user.id, product_id: @product.id)
+    end
   end
 
   # GET /products/new

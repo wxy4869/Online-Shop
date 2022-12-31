@@ -1,10 +1,72 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <div class="row clearfix">
+    <!-- 左侧图片 -->
+    <div class="col-md-6 column">
+      <%= image_tag(@product.url, style: "width: 100%") %>
+    </div>
 
-<%= render @product %>
+    <!-- 右侧文字 -->
+    <div class="col-md-6 column">
+      <!-- 详情 -->
+      <div class="page-header">
+        <h2><%= @product.name %></h2>
+      </div>
+      <div class="row clearfix" style="margin-top: 20px">
+        <div class="col-md-2 text-danger text-right" style="font-size: 18px; line-height: 2"><strong>售价：</strong></div>
+        <div class="col-md-10 text-danger" style="font-size: 18px; line-height: 2"><%= number_with_precision(@product.price, :precision => 2) %> ¥</div>
+      </div>
+      <div class="row clearfix" style="margin-top: 20px">
+        <div class="col-md-2 text-muted text-right" style="font-size: 18px; line-height: 2"><strong>销量：</strong></div>
+        <div class="col-md-10 text-muted" style="font-size: 18px; line-height: 2"><%= @product.sales %></div>
+      </div>
+      <div class="row clearfix" style="margin-top: 20px">
+        <div class="col-md-2 text-right" style="font-size: 18px; line-height: 2"><strong>详情：</strong></div>
+        <div class="col-md-10" style="font-size: 18px; line-height: 2">
+          <% if @product.detail.nil? || @product.detail.empty? %>
+            <%= '无' %>
+          <% else %>
+            <%= @product.detail %>
+          <% end %>
+        </div>
+      </div>
 
-<div>
-  <%= link_to "Edit this product", edit_product_path(@product) %> |
-  <%= link_to "Back to products", products_path %>
+      <!-- 加入购物车 -->
+      <div class="row clearfix" style="margin-top: 15px">
+        <div class="col-md-12">
+          <%= form_with(model: Cart, class: "form-horizontal") do |f| %>
+            <% if user_signed_in? %>
+              <%= f.hidden_field :user_id, value: current_user.id %>
+            <% end %>
+            <%= f.hidden_field :product_id, value: @product.id %>
+            <div class="form-group">
+              <div class="col-md-2 control-label text-right" style="font-size: 18px; line-height: 2"><strong>样式：</strong></div>
+              <div class="col-md-10" style="margin-top: 8px">
+                <select class="form-control">
+                  <%= options_from_collection_for_select(@product.product_features, :id, :name) %>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-2 control-label" style="font-size: 18px; line-height: 2"><strong>数量：</strong></div>
+              <div class="col-md-5" style="margin-top: 8px"><%= f.number_field :num, step: 1, min: 1, class: "form-control" %></div>
+            </div>
+            <div class="col-md-2 pull-left" style="margin-top: 15px"><%= f.submit "加入购物车", class: 'btn btn-primary' %></div>
+          <% end %>
 
-  <%= button_to "Destroy this product", @product, method: :delete %>
+          <!-- 加入收藏夹 -->
+          <% if @collect %>
+            <div class="col-md-2 pull-left" style="margin-left: 20px; margin-top: 15px"><%= button_to "取消收藏", @collect, method: :delete, class: 'btn btn-primary' %></div>
+          <% else %>
+            <%= form_with(model: Collect) do |f| %>
+              <% if user_signed_in? %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+              <% end %>
+              <%= f.hidden_field :product_id, value: @product.id %>
+              <div class="col-md-2 pull-left" style="margin-left: 20px; margin-top: 15px"><%= f.submit "加入收藏夹", class: 'btn btn-primary' %></div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

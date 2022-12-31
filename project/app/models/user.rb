@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :orders
   has_many :product_features, through: :carts
-  has_many :product_features, through: :collects
+  has_many :product, through: :collects
 
   protected
 

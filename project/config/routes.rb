@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :collects
+  resources :carts
   resources :product_features
   resources :products
   get 'welcome/index'
