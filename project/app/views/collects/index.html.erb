@@ -1,14 +1,30 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <div class="row clearfix">
+    <!-- 我的收藏 -->
+    <div class="col-md-12 column">
+      <div class="page-header">
+        <h2>我的收藏</h2>
+      </div>
+    </div>
 
-<h1>Collects</h1>
-
-<div id="collects">
-  <% @collects.each do |collect| %>
-    <%= render collect %>
-    <p>
-      <%= link_to "Show this collect", collect %>
-    </p>
-  <% end %>
+    <div class="col-md-12 column">
+      <div class="container">
+        <% @products.each do |product| %>
+          <div class="col-md-3">
+            <div class="card" style="height: fit-content">
+              <%= image_tag(product.url, class: "card-img-top", width: "90%") %>
+              <div class="card-body">
+                <h4 class="card-title" style="height: 60px"><%= product.name %></h4>
+                <h4 class="card-text text-danger">售价：<%= number_with_precision(product.price, :precision => 2) %> ¥</h4>
+                <%= link_to "详情", product, class:"btn btn-primary pull-left"%>
+                <% @collect = Collect.find_by(user_id: current_user.id, product_id: product.id) %>
+                <%= button_to "取消收藏", @collect, method: :delete, class: 'btn btn-primary pull-right' %>
+              </div>
+            </div>
+            <br><br>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New collect", new_collect_path %>

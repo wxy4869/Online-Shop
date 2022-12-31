@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :collects
+  resources :collects, only: %i[ index create destroy ]
   resources :carts
   resources :product_features
   resources :products

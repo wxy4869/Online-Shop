@@ -1,10 +1,14 @@
 class CollectsController < ApplicationController
+  layout "main"
   before_action :set_collect, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
 
   # GET /collects or /collects.json
   def index
-    @collects = Collect.all
+    @products = Product.find_by_sql("SELECT products.* FROM products INNER JOIN collects ON collects.product_id = products.id WHERE collects.user_id = #{current_user.id}")
+    if @products.empty?
+      flash[:notice] = "您还没有收藏过商品哦"
+    end
   end
 
   # GET /collects/1 or /collects/1.json
@@ -26,7 +30,7 @@ class CollectsController < ApplicationController
 
     respond_to do |format|
       if @collect.save
-        format.html { redirect_to collect_url(@collect), notice: "成功加入收藏夹" }
+        format.html { redirect_to collects_url, notice: "成功加入收藏夹" }
         format.json { render :show, status: :created, location: @collect }
       else
         format.html { render :new, status: :unprocessable_entity }
