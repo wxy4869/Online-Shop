@@ -1,10 +1,15 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: %i[ show edit update destroy ]
+  layout "main"
+  before_action :set_cart, only: %i[ show edit update destroy myDestroy ]
   before_action :authenticate_user!
 
   # GET /carts or /carts.json
   def index
-    @carts = Cart.all
+    @items = Product.find_by_sql(
+        "SELECT * FROM products
+        INNER JOIN product_features ON products.id = product_features.product_id
+        INNER JOIN carts ON product_features.id = carts.product_feature_id
+        WHERE carts.user_id = #{current_user.id}")
   end
 
   # GET /carts/1 or /carts/1.json
@@ -21,12 +26,12 @@ class CartsController < ApplicationController
   end
 
   # POST /carts or /carts.json
-  def create  # TODO
+  def create
     @cart = Cart.new(cart_params)
 
     respond_to do |format|
       if @cart.save
-        format.html { redirect_to cart_url(@cart), notice: "成功加入购物车" }
+        format.html { redirect_to carts_url, notice: "成功加入购物车" }
         format.json { render :show, status: :created, location: @collect }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +44,7 @@ class CartsController < ApplicationController
   def update
     respond_to do |format|
       if @cart.update(cart_params)
-        format.html { redirect_to cart_url(@cart), notice: "Cart was successfully updated." }
+        format.html { redirect_to carts_url, notice: "修改成功" }
         format.json { render :show, status: :ok, location: @cart }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +58,28 @@ class CartsController < ApplicationController
     @cart.destroy
 
     respond_to do |format|
-      format.html { redirect_to carts_url, notice: "Cart was successfully destroyed." }
+      format.html { redirect_to carts_url, notice: "成功移出购物车" }
+      format.json { head :no_content }
+    end
+  end
+
+  def myUpdate
+    @cart = Cart.find(params[:cart_id])
+    @product = Product.find(params[:product_id])
+    @cart.destroy
+
+    respond_to do |format|
+      format.html { redirect_to product_url(@product), notice: "请重新选择样式和数量并添加到购物车" }
+      format.json { head :no_content }
+    end
+  end
+
+  def myDestroy
+    @cart = Cart.find(params[:id])
+    @cart.destroy
+
+    respond_to do |format|
+      format.html { redirect_to carts_url, notice: "成功移出购物车" }
       format.json { head :no_content }
     end
   end
@@ -66,6 +92,6 @@ class CartsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cart_params
-      params.require(:cart).permit(:user_id, :product_feature_id, :num)
+      params.require(:cart).permit(:id, :user_id, :product_feature_id, :num)
     end
 end

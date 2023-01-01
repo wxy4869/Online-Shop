@@ -6,9 +6,6 @@ class CollectsController < ApplicationController
   # GET /collects or /collects.json
   def index
     @products = Product.find_by_sql("SELECT products.* FROM products INNER JOIN collects ON collects.product_id = products.id WHERE collects.user_id = #{current_user.id}")
-    if @products.empty?
-      flash[:notice] = "您还没有收藏过商品哦"
-    end
   end
 
   # GET /collects/1 or /collects/1.json

@@ -1,14 +1,108 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <div class="row clearfix">
+    <!-- 我的购物车 -->
+    <div class="col-md-12 column">
+      <div class="page-header">
+        <h2>我的购物车</h2>
+      </div>
+    </div>
 
-<h1>Carts</h1>
+    <%= form_with(model: Order, class: "form-horizontal") do |f| %>
+      <!-- 列表 -->
+      <div class="col-md-12 column">
+        <!-- 表头 -->
+        <div class="col-md-12 column">
+          <div class="row clearfix" style="margin-bottom: 20px; border-bottom: 1px solid #EEEEEE;">
+            <div class="col-md-offset-1 col-md-2 column text-center h4">商品图片</div>
+            <div class="col-md-2 column text-center h4">商品名称</div>
+            <div class="col-md-1 column text-center h4">售价</div>
+            <div class="col-md-1 column text-center h4">样式</div>
+            <div class="col-md-1 column text-center h4">数量</div>
+            <div class="col-md-1 column text-center h4">金额</div>
+            <div class="col-md-3 column text-center h4">操作</div>
+          </div>
+        </div>
 
-<div id="carts">
-  <% @carts.each do |cart| %>
-    <%= render cart %>
-    <p>
-      <%= link_to "Show this cart", cart %>
-    </p>
-  <% end %>
+        <!-- 购物车内容 -->
+        <% if @items.size == 0 %>
+          <div class="col-md-12 column">
+            <div class="row clearfix">
+              <div class="text-warning">购物车空空如也</div>
+            </div>
+          </div>
+        <% end %>
+        <div class="col-md-12 column">
+        <% @items.each do |item| %>
+          <% @product = Product.find(item.product_id) %>
+          <% @cart = Cart.find_by(user_id: current_user.id, product_feature_id: item.product_feature_id) %>
+          <div class="row clearfix" style="height: 175px">
+            <div class="col-md-1 column text-center">
+              <input type="checkbox" value=<%= @cart.id %> name="cart_id[]" id="order_cart_id"><label for="order_cart_id"></label>
+            </div>
+            <div class="col-md-2 column"><%= image_tag(item.url, width: "90%") %></div>
+            <div class="col-md-2 column text-center"><%= item.product_name %></div>
+            <div class="col-md-1 column text-center text-danger"><%= number_with_precision(item.price, :precision => 2) %> ¥</div>
+            <div class="col-md-1 column text-center"><%= item.feature_name %></div>
+            <div class="col-md-1 column text-center"><%= item.num %></div>
+            <div class="col-md-1 column text-center text-danger"><%= number_with_precision(item.price * item.num, :precision => 2) %> ¥</div>
+            <div class="col-md-3 column">
+              <div class="row">
+                <%= link_to "详情", @product, class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
+                <%= link_to "修改", cart_my_update_path(@cart.id, @product.id), class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
+                <%= link_to "移出购物车", cart_my_destroy_path(@cart.id), class:"btn btn-danger pull-left", style: "margin-left: 20px" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      </div>
+
+      <!-- 表单 -->
+      <% if @items.size != 0 %>
+        <div class="col-md-12 column">
+          <div class="panel-group" id="panel-811256">
+            <div class="panel panel-default">
+              <!-- 表头 -->
+              <div class="panel-heading">
+                <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-811256" href="#panel-element-557694" style="text-decoration:none">创建订单</a>
+              </div>
+
+              <!-- 创建订单 -->
+              <%= f.hidden_field :user_id, value: current_user.id %>
+              <%= f.hidden_field :status, value: 0 %>
+              <div id="panel-element-557694" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="form-group">
+                    <div class="col-md-2 control-label text-right h4">收件人：</div>
+                    <div class="col-md-8" style="margin-top: 8px">
+                      <%= f.text_field :real_name, required: true, class: 'form-control' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-2 control-label text-right h4">地址：</div>
+                    <div class="col-md-8" style="margin-top: 8px">
+                      <%= f.text_field :address, required: true, class: 'form-control' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-2 control-label text-right h4">电话：</div>
+                    <div class="col-md-8" style="margin-top: 8px">
+                      <%= f.text_field :telephone, required: true, class: 'form-control' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-2 control-label text-right h4">邮编：</div>
+                    <div class="col-md-8" style="margin-top: 8px">
+                      <%= f.text_field :post_code, required: true, class: 'form-control' %>
+                    </div>
+                  </div>
+                  <div class="col-md-2 pull-right" style="margin-top: 15px"><%= f.submit "创建订单", class: 'btn btn-primary' %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New cart", new_cart_path %>

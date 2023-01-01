@@ -7,6 +7,12 @@
       </div>
     </div>
 
+    <!-- 列表 -->
+    <% if @products.size == 0 %>
+      <div class="col-md-12 column">
+        <div class="text-warning">收藏夹空空如也</div>
+      </div>
+    <% end %>
     <div class="col-md-12 column">
       <div class="container">
         <% @products.each do |product| %>
@@ -14,7 +20,7 @@
             <div class="card" style="height: fit-content">
               <%= image_tag(product.url, class: "card-img-top", width: "90%") %>
               <div class="card-body">
-                <h4 class="card-title" style="height: 60px"><%= product.name %></h4>
+                <h4 class="card-title" style="height: 60px"><%= product.product_name %></h4>
                 <h4 class="card-text text-danger">售价：<%= number_with_precision(product.price, :precision => 2) %> ¥</h4>
                 <%= link_to "详情", product, class:"btn btn-primary pull-left"%>
                 <% @collect = Collect.find_by(user_id: current_user.id, product_id: product.id) %>

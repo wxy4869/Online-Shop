@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_024518) do
   end
 
   create_table "product_features", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "feature_name", default: "", null: false
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_024518) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "product_name", default: "", null: false
     t.text "detail"
     t.decimal "price", default: "0.0", null: false
     t.integer "sales", default: 0, null: false
