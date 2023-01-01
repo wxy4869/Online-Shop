@@ -63,9 +63,14 @@
           <!-- 右侧导航 -->
           <div class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
-              <li><%= link_to "我的收藏", collects_path %></li>
-              <li><%= link_to "我的购物车", carts_path %></li>
-              <li><%= link_to "我的订单", orders_path %></li>
+              <% if current_user.status == 0 %>
+                <li><%= link_to "我的收藏", collects_path %></li>
+                <li><%= link_to "我的购物车", carts_path %></li>
+                <li><%= link_to "我的订单", orders_path %></li>
+              <% else %>
+                <li><%= link_to "商品管理", products_url %></li>
+                <li><%= link_to "订单管理", orders_path %></li>
+              <% end %>
               <li><%= link_to "个人中心", '#' %></li> <!-- TODO -->
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.username %><strong class="caret"></strong></a>

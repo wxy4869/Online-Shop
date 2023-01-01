@@ -1,9 +1,13 @@
 <div class="container">
   <div class="row clearfix">
-    <!-- 我的购物车 -->
+    <!-- 我的订单 / 订单管理 -->
     <div class="col-md-12 column">
       <div class="page-header">
-        <h2>我的订单</h2>
+        <% if current_user.status == 1 %>
+          <h2>订单管理</h2>
+        <% else %>
+          <h2>我的订单</h2>
+        <% end %>
       </div>
     </div>
 
@@ -13,7 +17,7 @@
       <div class="col-md-12 column">
         <div class="row clearfix" style="margin-bottom: 10px; border-bottom: 1px solid #EEEEEE;">
           <% if current_user.status == 1 %><div class="col-md-1 column text-center h4">用户</div><% end %>
-          <% if current_user.status == 1 %><div class="col-md-2 column text-center h4">商品名称</div><% else %><div class="col-md-3 column text-center h4">商品名称</div><% end %>
+          <% if current_user.status == 0 %><div class="col-md-3 column text-center h4">商品名称</div><% else %><div class="col-md-1 column text-center h4">商品名称</div><% end %>
           <div class="col-md-1 column text-center h4">收件人</div>
           <div class="col-md-2 column text-center h4">地址</div>
           <div class="col-md-1 column text-center h4">电话</div>
@@ -44,8 +48,8 @@
               </div>
             <% end %>
             <!-- 商品名称 -->
-            <% if current_user.status == 1 %>
-              <div class="col-md-2 column text-center">
+            <% if current_user.status == 0 %>
+              <div class="col-md-3 column text-center">
                 <% @order_details.each do |order_detail|  %>
                   <% @product_feature = ProductFeature.find(order_detail.product_feature_id) %>
                   <% @product = Product.find(@product_feature.product_id) %>
@@ -53,7 +57,7 @@
                 <% end %>
               </div>
             <% else %>
-              <div class="col-md-3 column text-center">
+              <div class="col-md-2 column text-center">
                 <% @order_details.each do |order_detail|  %>
                   <% @product_feature = ProductFeature.find(order_detail.product_feature_id) %>
                   <% @product = Product.find(@product_feature.product_id) %>

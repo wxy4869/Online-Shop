@@ -8,9 +8,14 @@
     </div>
 
     <!-- 列表 -->
-    <% if @products.size == 0 %>
+    <% if @products.size == 0 && current_user.status == 0 %>
       <div class="col-md-12 column">
         <div class="text-warning">收藏夹空空如也</div>
+      </div>
+    <% end %>
+    <% if current_user.status == 1 %>
+      <div class="col-md-12 column">
+        <div class="text-warning">您是管理员，请退出登录后以普通用户身份登录再访问收藏夹</div>
       </div>
     <% end %>
     <div class="col-md-12 column">
