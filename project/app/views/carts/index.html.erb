@@ -12,7 +12,7 @@
       <div class="col-md-12 column">
         <!-- 表头 -->
         <div class="col-md-12 column">
-          <div class="row clearfix" style="margin-bottom: 20px; border-bottom: 1px solid #EEEEEE;">
+          <div class="row clearfix" style="margin-bottom: 10px; border-bottom: 1px solid #EEEEEE;">
             <div class="col-md-offset-1 col-md-2 column text-center h4">商品图片</div>
             <div class="col-md-2 column text-center h4">商品名称</div>
             <div class="col-md-1 column text-center h4">售价</div>
@@ -32,28 +32,50 @@
           </div>
         <% end %>
         <div class="col-md-12 column">
-        <% @items.each do |item| %>
-          <% @product = Product.find(item.product_id) %>
-          <% @cart = Cart.find_by(user_id: current_user.id, product_feature_id: item.product_feature_id) %>
-          <div class="row clearfix" style="height: 175px">
-            <div class="col-md-1 column text-center">
-              <input type="checkbox" value=<%= @cart.id %> name="cart_id[]" id="order_cart_id"><label for="order_cart_id"></label>
-            </div>
-            <div class="col-md-2 column"><%= image_tag(item.url, width: "90%") %></div>
-            <div class="col-md-2 column text-center"><%= item.product_name %></div>
-            <div class="col-md-1 column text-center text-danger"><%= number_with_precision(item.price, :precision => 2) %> ¥</div>
-            <div class="col-md-1 column text-center"><%= item.feature_name %></div>
-            <div class="col-md-1 column text-center"><%= item.num %></div>
-            <div class="col-md-1 column text-center text-danger"><%= number_with_precision(item.price * item.num, :precision => 2) %> ¥</div>
-            <div class="col-md-3 column">
-              <div class="row">
-                <%= link_to "详情", @product, class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
-                <%= link_to "修改", cart_my_update_path(@cart.id, @product.id), class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
-                <%= link_to "移出购物车", cart_my_destroy_path(@cart.id), class:"btn btn-danger pull-left", style: "margin-left: 20px" %>
+          <% @items.each do |item| %>
+            <% @product = Product.find(item.product_id) %>
+            <% @cart = Cart.find_by(user_id: current_user.id, product_feature_id: item.product_feature_id) %>
+            <div class="row clearfix" style="height: 175px; margin-top: 10px; margin-bottom: 10px; border-bottom: 1px solid #EEEEEE;">
+              <!-- check_box -->
+              <div class="col-md-1 column text-center" style="height: 175px; display: table">
+                <div style="vertical-align: middle;display: table-cell">
+                  <input type="checkbox" value=<%= @cart.id %> name="cart_id[]" id="order_cart_id"><label for="order_cart_id"></label>
+                </div>
+              </div>
+              <!-- 商品图片 -->
+              <div class="col-md-2 column"><%= image_tag(item.url, width: "100%") %></div>
+              <!-- 商品名称 -->
+              <div class="col-md-2 column text-center" style="height: 175px; display: table">
+                <div style="vertical-align: middle;display: table-cell"><%= item.product_name %></div>
+              </div>
+              <!-- 售价 -->
+              <div class="col-md-1 column text-center text-danger" style="height: 175px; display: table">
+                <div style="vertical-align: middle; display: table-cell"><%= number_with_precision(item.price, :precision => 2) %> ¥</div>
+              </div>
+              <!-- 样式 -->
+              <div class="col-md-1 column text-center" style="height: 175px; display: table">
+                <div style="vertical-align: middle; display: table-cell"><%= item.feature_name %></div>
+              </div>
+              <!-- 数量 -->
+              <div class="col-md-1 column text-center" style="height: 175px; display: table">
+                <div style="vertical-align: middle; display: table-cell"><%= item.num %></div>
+              </div>
+              <!-- 金额 -->
+              <div class="col-md-1 column text-center text-danger" style="height: 175px; display: table">
+                <div style="vertical-align: middle; display: table-cell"><%= number_with_precision(item.price * item.num, :precision => 2) %> ¥</div>
+              </div>
+              <!-- 操作 -->
+              <div class="col-md-3 column" style="height: 175px; display: table">
+                <div style="vertical-align: middle; display: table-cell">
+                  <div class="row">
+                    <%= link_to "详情", @product, class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
+                    <%= link_to "修改", cart_my_update_path(@cart.id, @product.id), class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
+                    <%= link_to "移出购物车", cart_my_destroy_path(@cart.id), class:"btn btn-danger pull-left", style: "margin-left: 20px" %>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
         </div>
       </div>
 

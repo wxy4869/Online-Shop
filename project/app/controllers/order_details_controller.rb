@@ -1,5 +1,7 @@
 class OrderDetailsController < ApplicationController
+  layout "main"
   before_action :set_order_detail, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /order_details or /order_details.json
   def index

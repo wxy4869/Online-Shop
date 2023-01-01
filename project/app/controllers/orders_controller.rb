@@ -1,9 +1,15 @@
 class OrdersController < ApplicationController
+  layout "main"
   before_action :set_order, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.all
+    if current_user.status == 0
+      @orders = Order.where(user_id: current_user.id)
+    else
+      @orders = Order.all
+    end
   end
 
   # GET /orders/1 or /orders/1.json
@@ -25,6 +31,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
+        price = 0
         params[:cart_id].each do |cart_id|
           @cart = Cart.find(cart_id)
           @order_detail = OrderDetail.new(product_feature_id: @cart.product_feature_id, num: @cart.num, order_id: @order.id)
@@ -34,11 +41,13 @@ class OrdersController < ApplicationController
                INNER JOIN product_features ON products.id = product_features.product_id
                INNER JOIN carts ON product_features.id = carts.product_feature_id
                WHERE carts.id = #{@cart.id}").first
-          puts @product.sales
           @product.sales = @product.sales + @cart.num
           @product.save
           @cart.destroy
+          price = price + @product.price * @order_detail.num
         end
+        @order.price = price
+        @order.save
         format.html { redirect_to orders_url, notice: "订单创建成功" }
         format.json { render :show, status: :created, location: @order }
       else
@@ -63,11 +72,25 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1 or /orders/1.json
   def destroy
+    @order_details = OrderDetail.where(order_id: @order.id)
+    @order_details.each do |order_detail|
+      order_detail.destroy
+    end
     @order.destroy
 
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
+      format.html { redirect_to orders_url, notice: "成功删除订单" }
       format.json { head :no_content }
+    end
+  end
+
+  def updateStatus
+    @order = Order.find(params[:order_id])
+    @order.status = params[:status]
+    @order.save
+
+    respond_to do |format|
+      format.html { redirect_to orders_url }
     end
   end
 

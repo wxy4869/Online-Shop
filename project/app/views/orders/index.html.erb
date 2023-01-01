@@ -1,14 +1,181 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <div class="row clearfix">
+    <!-- 我的购物车 -->
+    <div class="col-md-12 column">
+      <div class="page-header">
+        <h2>我的订单</h2>
+      </div>
+    </div>
 
-<h1>Orders</h1>
+    <!-- 列表 -->
+    <div class="col-md-12 column">
+      <!-- 表头 -->
+      <div class="col-md-12 column">
+        <div class="row clearfix" style="margin-bottom: 10px; border-bottom: 1px solid #EEEEEE;">
+          <% if current_user.status == 1 %><div class="col-md-1 column text-center h4">用户</div><% end %>
+          <% if current_user.status == 1 %><div class="col-md-2 column text-center h4">商品名称</div><% else %><div class="col-md-3 column text-center h4">商品名称</div><% end %>
+          <div class="col-md-1 column text-center h4">收件人</div>
+          <div class="col-md-2 column text-center h4">地址</div>
+          <div class="col-md-1 column text-center h4">电话</div>
+          <div class="col-md-1 column text-center h4">邮编</div>
+          <div class="col-md-1 column text-center h4">总价</div>
+          <div class="col-md-1 column text-center h4">状态</div>
+          <div class="col-md-2 column text-center h4">操作</div>
+        </div>
+      </div>
 
-<div id="orders">
-  <% @orders.each do |order| %>
-    <%= render order %>
-    <p>
-      <%= link_to "Show this order", order %>
-    </p>
-  <% end %>
+      <!-- 订单内容 -->
+      <% if @orders.size == 0 %>
+        <div class="col-md-12 column">
+          <div class="row clearfix">
+            <div class="text-warning">还没有订单哦</div>
+          </div>
+        </div>
+      <% end %>
+      <div class="col-md-12 column">
+        <% @orders.each do |order| %>
+          <% @order_details = OrderDetail.where(order_id: order.id) %>
+          <div class="row clearfix" style="margin-top: 10px; margin-bottom: 10px; border-bottom: 1px solid #EEEEEE;">
+            <!-- 下单用户 -->
+            <% if current_user.status == 1 %>
+              <div class="col-md-1 column text-center">
+                <% @user = User.find(order.user_id) %>
+                <%= @user.username %>
+              </div>
+            <% end %>
+            <!-- 商品名称 -->
+            <% if current_user.status == 1 %>
+              <div class="col-md-2 column text-center">
+                <% @order_details.each do |order_detail|  %>
+                  <% @product_feature = ProductFeature.find(order_detail.product_feature_id) %>
+                  <% @product = Product.find(@product_feature.product_id) %>
+                  <p><%= link_to @product.product_name, product_path(@product) %> <%= @product_feature.feature_name %> x <%= order_detail.num %></p>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="col-md-3 column text-center">
+                <% @order_details.each do |order_detail|  %>
+                  <% @product_feature = ProductFeature.find(order_detail.product_feature_id) %>
+                  <% @product = Product.find(@product_feature.product_id) %>
+                  <p><%= link_to @product.product_name, product_path(@product) %> <%= @product_feature.feature_name %> x <%= order_detail.num %></p>
+                <% end %>
+              </div>
+            <% end %>
+
+            <!-- 收件人 -->
+            <div class="col-md-1 column text-center">
+              <%= order.real_name %>
+            </div>
+            <!-- 地址 -->
+            <div class="col-md-2 column text-center">
+              <%= order.address %>
+            </div>
+            <!-- 电话 -->
+            <div class="col-md-1 column text-center">
+              <%= order.telephone %>
+            </div>
+            <!-- 邮编 -->
+            <div class="col-md-1 column text-center">
+              <%= order.post_code %>
+            </div>
+            <!-- 总价 -->
+            <div class="col-md-1 column text-center text-danger">
+              <%= number_with_precision(order.price, :precision => 2) %> ¥
+            </div>
+            <!-- 状态 -->
+            <div class="col-md-1 column text-center">
+              <% if order.status == 0 %>待付款
+              <% elsif order.status == 1 %>待发货
+              <% elsif order.status == 2 %>待收货
+              <% elsif order.status == 3 %>已完成
+              <% else %>已取消
+              <% end %>
+            </div>
+
+            <!-- 操作 -->
+            <div class="col-md-2 column text-center">
+              <div class="row">
+                <% if current_user.status == 1 %>
+                  <% if order.status == 1 %>
+                    <!-- 取消订单 -->
+                    <form action=<%= order_update_status_path %> method="post" role="form">
+                      <%= hidden_field_tag :order_id, order.id %>
+                      <input type="hidden" id='status' name='status' value='4'>
+                      <%= button_to "取消订单", order_update_status_path, method: :post, class:"btn btn-danger pull-left", style: "margin-left: 20px" %>
+                    </form>
+                    <!-- 发货 -->
+                    <form action=<%= order_update_status_path %> method="post" role="form">
+                      <%= hidden_field_tag :order_id, order.id %>
+                      <input type="hidden" id='status' name='status' value='2'>
+                      <%= button_to "发货", order_update_status_path, method: :post, class:"btn btn-success pull-left", style: "margin-left: 20px" %>
+                    </form>
+                  <% elsif order.status == 2 %>
+                    <!-- 取消订单 -->
+                    <form action=<%= order_update_status_path %> method="post" role="form">
+                      <%= hidden_field_tag :order_id, order.id %>
+                      <input type="hidden" id='status' name='status' value='4'>
+                      <%= button_to "取消订单", order_update_status_path, method: :post, class:"btn btn-danger pull-left", style: "margin-left: 20px" %>
+                    </form>
+                  <% else %>-
+                  <% end %>
+                <% else %>
+                  <% if order.status == 0 %>
+                    <!-- 取消订单 -->
+                    <form action=<%= order_update_status_path %> method="post" role="form">
+                      <%= hidden_field_tag :order_id, order.id %>
+                      <input type="hidden" id='status' name='status' value='4'>
+                      <%= button_to "取消订单", order_update_status_path, method: :post, class:"btn btn-danger pull-left", style: "margin-left: 20px" %>
+                    </form>
+                    <!-- 付款 -->
+                    <a id="modal-325084" href="#modal-container-325084" role="button" class="btn btn-primary pull-left" style="margin-left: 20px" data-toggle="modal" onclick="Values(<%= order.id %>)">付款</a>
+                  <% elsif order.status == 1 %>-
+                  <% elsif order.status == 2 %>
+                    <!-- 确认收货 -->
+                    <form action=<%= order_update_status_path %> method="post" role="form">
+                      <%= hidden_field_tag :order_id, order.id %>
+                      <input type="hidden" id='status' name='status' value='3'>
+                      <%= button_to "确认收货", order_update_status_path, method: :post, class:"btn btn-success pull-left", style: "margin-left: 20px" %>
+                    </form>
+                  <% else %>
+                    <!-- 删除订单 -->
+                    <%= button_to "删除订单", order_path(order.id), method: :delete, class:"btn btn-danger pull-left", style: "margin-left: 20px" %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
-<%= link_to "New order", new_order_path %>
+<div class="modal fade" id="modal-container-325084" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">付款</h4>
+      </div>
+      <div class="modal-body">
+        <div class="text-center" style="margin: 10px">扫描此二维码以付款，待后台工作人员确认后将发货，请耐心等待</div>
+        <div style="text-align:center; margin: 10px"><%= image_tag("static/QR_code.jpg", style: "height: 175px;") %></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-left: 20px">关闭</button>
+        <form action=<%= order_update_status_path %> method="post" role="form">
+          <input type="hidden" id='modal-container-325084_order_id' name='order_id' value=''>
+          <input type="hidden" id='status' name='status' value='1'>
+          <%= button_to "完成付款", order_update_status_path, method: :post, class: "btn btn-success pull-right", style: "margin-left: 20px" %>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#modal-container-325084").modal("hide");
+  function Values(ID) {
+      $("#modal-container-325084_order_id").val(ID)
+  }
+</script>
