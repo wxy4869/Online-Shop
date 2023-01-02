@@ -18,14 +18,14 @@
       </div>
     <% end %>
     <div class="col-md-12 column">
-      <div class="container">
+      <div class="container" style="padding-left: 0">
         <% @products.each do |product| %>
           <% if ((not user_signed_in?) || (user_signed_in? && current_user.status == 0)) && product.status == 1 %>
             <% next %>
           <% end %>
-          <div class="col-md-3">
+          <div class="col-md-3" style="margin-bottom: 20px">
             <div class="card" style="height: fit-content">
-              <%= image_tag(product.url, class: "card-img-top", width: "90%") %>
+              <%= image_tag(product.url, class: "card-img-top", width: "100%") %>
               <div class="card-body">
                 <h4 class="card-title" style="height: 60px"><%= product.product_name %></h4>
                 <h4 class="card-text text-danger">售价：<%= number_with_precision(product.price, :precision => 2) %> ¥</h4>

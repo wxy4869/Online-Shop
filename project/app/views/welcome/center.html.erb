@@ -13,7 +13,11 @@
     <% else %>
       <div class="col-md-12 column">
         <p>自 <%= current_user.created_at.strftime("%Y 年 %m 月 %d 日") %>注册以来，您收藏了 <text class="h3 text-danger"><%= @collect_cnt %></text> 件商品，您有 <text class="h3 text-danger"><%= @order_cnt %></text> 个订单，购物车中还有 <text class="h3 text-danger"><%= @cart_cnt %></text> 件商品待您购买。</p>
-        <%= link_to '随便逛逛', product_path(@product_id), class: "btn btn-success pull-right" %>
+        <% if @product_id == 0 %>
+          <%= link_to '随便逛逛', products_path, class: "btn btn-success pull-right" %>
+        <% else %>
+          <%= link_to '随便逛逛', product_path(@product_id), class: "btn btn-success pull-right" %>
+        <% end %>
       </div>
     <% end %>
   </div>

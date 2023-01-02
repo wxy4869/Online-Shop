@@ -14,19 +14,19 @@
           <div class="form-group">
             <div class="col-md-2 control-label text-right h4">名称：</div>
             <div class="col-md-8" style="margin-top: 8px">
-              <%= f.text_field :product_name, required: true, class: 'form-control' %>
+              <%= f.text_field :product_name, required: true, class: 'form-control', maxlength: "40", placeholder: "请输入 1~40 字" %>
             </div>
           </div>
           <div class="form-group">
             <div class="col-md-2 control-label text-right h4">详情：</div>
             <div class="col-md-8" style="margin-top: 8px">
-              <%= f.text_area :detail, class: 'form-control', rows: 6, style: "resize: vertical" %>
+              <%= f.text_area :detail, class: 'form-control', rows: 6, style: "resize: vertical", maxlength: "200", placeholder: "请输入不超过 200 字" %>
             </div>
           </div>
           <div class="form-group">
             <div class="col-md-2 control-label text-right h4">售价：</div>
             <div class="col-md-2" style="margin-top: 8px">
-              <%= f.number_field :price, required: true, step: 0.01, min: 0.00, class: 'form-control' %>
+              <%= f.number_field :price, required: true, step: 0.01, min: 0.00, class: 'form-control', placeholder: "单位：元" %>
             </div>
           </div>
           <div class="form-group">
@@ -41,13 +41,13 @@
               <div class="form-group">
                 <div class="col-md-2 control-label text-right h4">样式：</div>
                 <div class="col-md-7" style="margin-top: 8px">
-                  <input required='required' class='form-control' type='text' name='feature_name[]' id='feature_name' value=<%= @product.product_features[i].feature_name %>>
+                  <input required='required' class='form-control' type='text' name='feature_name[]' id='feature_name' value=<%= @product.product_features[i].feature_name %> maxlength="20" placeholder="请输入&ensp;1~20&ensp;字">
                 </div>
               </div>
             <% else %>
               <div class="form-group">
                 <div class="col-md-offset-2 col-md-7" style="margin-top: 8px">
-                  <input required='required' class='form-control' type='text' name='feature_name[]' id='feature_name' value=<%= @product.product_features[i].feature_name %>>
+                  <input required='required' class='form-control' type='text' name='feature_name[]' id='feature_name' value=<%= @product.product_features[i].feature_name %> maxlength="20" placeholder="请输入&ensp;1~20&ensp;字">
                 </div>
                 <div class='col-md-1 control-label text-right h4' style='margin-top: 8px; padding-top: 0'>
                   <button class='btn btn-danger remove-feature' type='button'>删除</button>
@@ -84,7 +84,7 @@
         var input = $("" +
             "<div class='form-group'>" +
             "<div class='col-md-offset-2 col-md-7' style='margin-top: 8px'>" +
-            "<input required='required' class='form-control' type='text' name='feature_name[]' id='feature_name'>" +
+            "<input required='required' class='form-control' type='text' name='feature_name[]' id='feature_name' maxlength='20' placeholder='请输入 1~20 字'>" +
             "</div>" +
             "<div class='col-md-1 control-label text-right h4' style='margin-top: 8px; padding-top: 0'>" +
             "<button class='btn btn-danger remove-feature' type='button'>删除</button>" +
