@@ -1,6 +1,10 @@
+require 'digest/md5.so'
+
 class ProductsController < ApplicationController
   layout "main"
   before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: %i[ new edit ]
+  before_action :authenticate_admin, only: %i[ new edit ]
 
   # GET /products or /products.json
   def index
@@ -26,28 +30,49 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
+    @product.save
+
+    uploaded_io = params[:product][:picture]
+    file_name = Digest::MD5.hexdigest(@product.id.to_s + uploaded_io.original_filename) + ".png"
+    File.open(Rails.root.join('app', 'assets', 'images', 'product', file_name), 'wb') do |file|
+      file.write(uploaded_io.read)
+    end
+    @product.url = "product/" + file_name
+    @product.save
+
+    params[:feature_name].each do |feature_name|
+      @product_feature = ProductFeature.new(feature_name: feature_name, product_id: @product.id)
+      @product_feature.save
+    end
 
     respond_to do |format|
-      if @product.save
-        format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to products_url, notice: "商品添加成功" }
     end
   end
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
+    uploaded_io = params[:product][:picture]
+    file_name = Digest::MD5.hexdigest(@product.id.to_s + uploaded_io.original_filename) + ".png"
+    File.open(Rails.root.join('app', 'assets', 'images', 'product', file_name), 'wb') do |file|
+      file.write(uploaded_io.read)
+    end
+    @product.url = "product/" + file_name
+    @product.save
+
+    @product.update(product_params)
+
+    @product.product_features.each do |product_feature|
+      product_feature.destroy
+    end
+
+    params[:feature_name].each do |feature_name|
+      @product_feature = ProductFeature.new(feature_name: feature_name, product_id: @product.id)
+      @product_feature.save
+    end
+
     respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to products_url, notice: "商品修改成功" }
     end
   end
 
@@ -83,6 +108,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.fetch(:product, {})
+      params.require(:product).permit(:product_name, :detail, :price)
     end
 end

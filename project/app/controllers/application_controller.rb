@@ -8,4 +8,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_in, keys: [:username, :password])
     devise_parameter_sanitizer.permit(:account_update, keys: [:username, :password, :password_confirmation, :current_password])
   end
+
+  def authenticate_admin
+    if current_user.status == 0
+      redirect_to root_path
+    end
+  end
 end

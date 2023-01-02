@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :orders, only: %i[ index create destroy ]
   resources :collects, only: %i[ index create destroy ]
   resources :carts, only: %i[ index create ]
-  resources :product_features
+  # resources :product_features
   resources :products, only: %i[ index show new edit create update ]
   get 'welcome/index'
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }

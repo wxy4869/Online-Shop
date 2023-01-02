@@ -1,4 +1,4 @@
-<% if @product.status == 0 %>
+<% if @product.status == 0 || (user_signed_in? && current_user.status == 1)%>
   <div class="container">
     <div class="row clearfix">
       <!-- 左侧图片 -->
@@ -68,6 +68,26 @@
                   <div class="col-md-2 pull-left" style="margin-left: 20px; margin-top: 15px"><%= f.submit "加入收藏夹", class: 'btn btn-primary' %></div>
                 <% end %>
               <% end %>
+            <% end %>
+
+            <!-- 修改 / 下架 / 上架 -->
+            <% if (not user_signed_in?) || (user_signed_in? && current_user.status == 1) %>
+              <div class="col-md-10" style="margin-top: 15px">
+                <%= link_to "修改", edit_product_path(@product), class:"btn btn-primary pull-left" %>
+                <% if @product.status == 0 %>
+                  <form action=<%= product_update_status_path %> method="post" role="form">
+                    <%= hidden_field_tag :product_id, @product.id %>
+                    <input type="hidden" id='status' name='status' value='1'>
+                    <%= button_to "下架", product_update_status_path, method: :post, class:"btn btn-danger pull-left", style: "margin-left: 20px" %>
+                  </form>
+                <% else %>
+                  <form action=<%= product_update_status_path %> method="post" role="form">
+                    <%= hidden_field_tag :product_id, @product.id %>
+                    <input type="hidden" id='status' name='status' value='0'>
+                    <%= button_to "上架", product_update_status_path, method: :post, class:"btn btn-success pull-left", style: "margin-left: 20px" %>
+                  </form>
+                <% end %>
+              </div>
             <% end %>
           </div>
         </div>

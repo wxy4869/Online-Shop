@@ -1,9 +1,85 @@
-<h1>New product</h1>
+<div class="container">
+  <div class="row clearfix">
+    <!-- 新增商品 -->
+    <div class="col-md-12 column">
+      <div class="page-header">
+        <h2>新增商品</h2>
+      </div>
+    </div>
 
-<%= render "form", product: @product %>
+    <!-- 表单 -->
+    <div class="col-md-12 column">
+      <%= form_with(model: Product, class: "form-horizontal") do |f| %>
+        <div class="row clearfix add-feature">
+          <div class="form-group">
+            <div class="col-md-2 control-label text-right h4">名称：</div>
+            <div class="col-md-8" style="margin-top: 8px">
+              <%= f.text_field :product_name, required: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-2 control-label text-right h4">详情：</div>
+            <div class="col-md-8" style="margin-top: 8px">
+              <%= f.text_area :detail, class: 'form-control', rows: 6, style: "resize: vertical" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-2 control-label text-right h4">售价：</div>
+            <div class="col-md-2" style="margin-top: 8px">
+              <%= f.number_field :price, required: true, step: 0.01, min: 0.00, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-2 control-label text-right h4">图片：</div>
+            <div class="col-md-10" style="margin-top: 12px">
+              <%= f.file_field :picture, required: true %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-2 control-label text-right h4">样式：</div>
+            <div class="col-md-7" style="margin-top: 8px">
+              <input required='required' class='form-control' type='text' name='feature_name[]' id='feature_name'>
+            </div>
+          </div>
+        </div>
 
-<br>
+        <!-- 新增一个样式 -->
+        <div class="row clearfix">
+          <div class="col-md-offset-2 col-md-4" style="margin-top: 8px; padding: 5px">
+            <input class='btn btn-success' type="button" onclick="addInput()" value="新增一个样式"/>
+          </div>
+        </div>
 
-<div>
-  <%= link_to "Back to products", products_path %>
+        <!-- 取消 / 提交 -->
+        <div class="row clearfix">
+          <div class="col-md-10" style="margin-top: 8px; padding: 5px">
+            <%= link_to "取消", products_url, class: 'btn btn-danger pull-right' %>
+            <%= f.submit "提交", class: 'btn btn-success pull-right', style: 'margin-right: 20px' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+<script src="https://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+<script>
+  function addInput() {
+    var input = $("" +
+      "<div class='form-group'>" +
+        "<div class='col-md-offset-2 col-md-7' style='margin-top: 8px'>" +
+          "<input required='required' class='form-control' type='text' name='feature_name[]' id='feature_name'>" +
+        "</div>" +
+        "<div class='col-md-1 control-label text-right h4' style='margin-top: 8px; padding-top: 0'>" +
+          "<button class='btn btn-danger remove-feature' type='button'>删除</button>" +
+        "</div>" +
+      "</div>");
+    $(".add-feature").append(input);
+  }
+  $("body").on("click", ".remove-feature", function (e) {
+      $(this).parent('div').parent('div').remove();
+      return false;
+  })
+</script>
