@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="page-header">
+        <h2>您好，<%= current_user.username %>！</h2>
+      </div>
+    </div>
+
+    <% if current_user.status == 1 %>
+      <div class="col-md-12 column">
+          <p class="text-warning">您是管理员，请退出登录后以普通用户身份登录再访问个人中心</p>
+      </div>
+    <% else %>
+      <div class="col-md-12 column">
+        <p>自 <%= current_user.created_at.strftime("%Y 年 %m 月 %d 日") %>注册以来，您收藏了 <text class="h3 text-danger"><%= @collect_cnt %></text> 件商品，您有 <text class="h3 text-danger"><%= @order_cnt %></text> 个订单，购物车中还有 <text class="h3 text-danger"><%= @cart_cnt %></text> 件商品待您购买。</p>
+        <%= link_to '随便逛逛', product_path(@product_id), class: "btn btn-success pull-right" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -75,7 +75,7 @@
                 <li><%= link_to "商品管理", products_url %></li>
                 <li><%= link_to "订单管理", orders_path %></li>
               <% end %>
-              <li><%= link_to "个人中心", '#' %></li> <!-- TODO -->
+              <li><%= link_to "个人中心", welcome_center_path %></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.username %><strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
