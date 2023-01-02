@@ -6,6 +6,7 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.decimal :price,       null: false, default: 0
       t.integer :sales,       null: false, default: 0
       t.string :url,          null: false, default: "static/default_product.jpg"
+      t.integer :status,      null: false, default: 0
 
       t.timestamps
     end

@@ -46,7 +46,11 @@
               <!-- check_box -->
               <div class="col-md-1 column text-center" style="height: 175px; display: table">
                 <div style="vertical-align: middle;display: table-cell">
-                  <input type="checkbox" value=<%= @cart.id %> name="cart_id[]" id="order_cart_id"><label for="order_cart_id"></label>
+                  <% if @product.status == 0 %>
+                    <input type="checkbox" value=<%= @cart.id %> name="cart_id[]" id="order_cart_id"><label for="order_cart_id"></label>
+                  <% else %>
+                    <div class="text-warning">已下架</div>
+                  <% end %>
                 </div>
               </div>
               <!-- 商品图片 -->
@@ -75,9 +79,13 @@
               <div class="col-md-3 column" style="height: 175px; display: table">
                 <div style="vertical-align: middle; display: table-cell">
                   <div class="row">
-                    <%= link_to "详情", @product, class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
-                    <%= link_to "修改", cart_my_update_path(@cart.id, @product.id), class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
-                    <%= link_to "移出购物车", cart_my_destroy_path(@cart.id), class:"btn btn-danger pull-left", style: "margin-left: 20px" %>
+                    <% if @product.status == 0 %>
+                      <%= link_to "详情", @product, class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
+                      <%= link_to "修改", cart_my_update_path(@cart.id, @product.id), class:"btn btn-primary pull-left", style: "margin-left: 20px" %>
+                    <% else %>
+                      <%= link_to "已下架", @product, class:"btn btn-primary pull-left disabled", style: "margin-left: 20px" %>
+                    <% end %>
+                    <%= link_to "移出购物车", cart_my_destroy_path(@cart.id), class:"btn btn-danger pull-right", style: "margin-left: 20px" %>
                   </div>
                 </div>
               </div>

@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    @products = Product.all.order("status ASC").order("created_at DESC")
   end
 
   # GET /products/1 or /products/1.json
@@ -58,6 +58,20 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def search
+    @products = Product.where("product_name LIKE '%#{params[:keyword]}%'").order("status ASC").order("created_at DESC")
+  end
+
+  def updateStatus
+    @product = Product.find(params[:product_id])
+    @product.status = params[:status]
+    @product.save
+
+    respond_to do |format|
+      format.html { redirect_to products_url }
     end
   end
 

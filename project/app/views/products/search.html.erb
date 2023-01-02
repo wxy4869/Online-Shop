@@ -1,20 +1,16 @@
 <div class="container">
   <div class="row clearfix">
-    <!-- 全部商品 / 商品管理 -->
+    <!-- 全部商品 -->
     <div class="col-md-12 column">
       <div class="page-header">
-        <% if (not user_signed_in?) || (user_signed_in? && current_user.status == 0) %>
-          <h2>全部商品</h2>
-        <% else %>
-          <h2>商品管理</h2>
-        <% end %>
+        <h2>全部商品</h2>
       </div>
     </div>
 
     <!-- 列表 -->
     <% if @products.size == 0 %>
       <div class="col-md-12 column">
-        <div class="text-warning">暂时没有商品哦</div>
+        <div class="text-warning">没有搜索到商品哦</div>
       </div>
     <% end %>
     <div class="col-md-12 column">
@@ -60,12 +56,5 @@
         <% end %>
       </div>
     </div>
-
-    <!-- 新增商品 -->
-    <% if user_signed_in? && current_user.status == 1 %>
-      <div class="col-md-12 column" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #EEEEEE;">
-        <%= link_to "新增商品", new_product_path, class:"btn btn-success pull-right" %>
-      </div>
-    <% end %>
   </div>
 </div>

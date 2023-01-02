@@ -56,6 +56,9 @@
       <div class="col-md-12 column">
         <div class="container">
           <% @products.each do |product| %>
+            <% if ((not user_signed_in?) || (user_signed_in? && current_user.status == 0)) && product.status == 1 %>
+              <% next %>
+            <% end %>
             <div class="col-md-3">
               <div class="card" style="height: fit-content">
                 <%= image_tag(product.url, class: "card-img-top", width: "90%") %>

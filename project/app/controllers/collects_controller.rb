@@ -5,7 +5,11 @@ class CollectsController < ApplicationController
 
   # GET /collects or /collects.json
   def index
-    @products = Product.find_by_sql("SELECT products.* FROM products INNER JOIN collects ON collects.product_id = products.id WHERE collects.user_id = #{current_user.id}")
+    @products = Product.find_by_sql(
+        "SELECT products.* FROM products
+         INNER JOIN collects ON collects.product_id = products.id
+         WHERE collects.user_id = #{current_user.id}
+         ORDER BY status ASC, collects.created_at DESC")
   end
 
   # GET /collects/1 or /collects/1.json

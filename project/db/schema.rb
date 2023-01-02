@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_024518) do
     t.decimal "price", default: "0.0", null: false
     t.integer "sales", default: 0, null: false
     t.string "url", default: "static/default_product.jpg", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

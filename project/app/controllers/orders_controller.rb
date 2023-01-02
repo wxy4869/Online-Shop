@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   # GET /orders or /orders.json
   def index
     if current_user.status == 0
-      @orders = Order.where(user_id: current_user.id)
+      @orders = Order.where(user_id: current_user.id).order("created_at DESC")
     else
       @orders = Order.all
     end

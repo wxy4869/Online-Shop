@@ -9,7 +9,8 @@ class CartsController < ApplicationController
         "SELECT * FROM products
         INNER JOIN product_features ON products.id = product_features.product_id
         INNER JOIN carts ON product_features.id = carts.product_feature_id
-        WHERE carts.user_id = #{current_user.id}")
+        WHERE carts.user_id = #{current_user.id}
+        ORDER BY products.status ASC, carts.created_at DESC")
   end
 
   # GET /carts/1 or /carts/1.json

@@ -54,14 +54,18 @@
 
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <!-- 搜索 -->
-          <form class="navbar-form navbar-left" role="search">
+          <form action=<%= product_search_path %> method="post" class="navbar-form navbar-left" role="search">
             <div class="form-group">
-              <input type="text" class="form-control" />
-            </div> <button type="submit" class="btn btn-default">搜索全站</button> <!-- TODO -->
+              <label for='keyword'></label><input type="text" id='keyword' name='keyword' class="form-control">
+            </div>
+            <%= button_to "搜索商品", product_search_path, method: :post, class: "btn btn-default" %>
           </form>
 
           <!-- 右侧导航 -->
           <div class="nav navbar-nav navbar-right">
+            <% if (not user_signed_in?) || (user_signed_in? && current_user.status == 0) %>
+              <li><%= link_to "全部商品", products_url %></li>
+            <% end %>
             <% if user_signed_in? %>
               <% if current_user.status == 0 %>
                 <li><%= link_to "我的收藏", collects_path %></li>

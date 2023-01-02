@@ -27,9 +27,13 @@
               <div class="card-body">
                 <h4 class="card-title" style="height: 60px"><%= product.product_name %></h4>
                 <h4 class="card-text text-danger">售价：<%= number_with_precision(product.price, :precision => 2) %> ¥</h4>
-                <%= link_to "详情", product, class:"btn btn-primary pull-left"%>
+                <% if product.status == 0 %>
+                  <%= link_to "详情", product, class:"btn btn-primary pull-left"%>
+                <% else %>
+                  <%= link_to "已下架", product, class:"btn btn-primary pull-left disabled" %>
+                <% end %>
                 <% @collect = Collect.find_by(user_id: current_user.id, product_id: product.id) %>
-                <%= button_to "取消收藏", @collect, method: :delete, class: 'btn btn-primary pull-right' %>
+                <%= button_to "取消收藏", @collect, method: :delete, class: 'btn btn-danger pull-right' %>
               </div>
             </div>
             <br><br>
