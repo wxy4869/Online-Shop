@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
   before_action :authenticate_user!, only: %i[ center ]
 
   def index
-    @products = Product.all.order("status ASC").order("sales DESC")
+    @products = Product.all.order("status ASC").order("sales DESC").order("created_at DESC")
   end
 
   def center

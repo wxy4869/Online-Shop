@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
     if current_user.status == 0
       @orders = Order.where(user_id: current_user.id).order("created_at DESC")
     else
-      @orders = Order.all
+      @orders = Order.all.order("created_at DESC")
     end
   end
 
@@ -27,6 +27,13 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
+    if params[:cart_id].nil?
+      respond_to do |format|
+        format.html { redirect_to carts_url, alert: "请至少选择一项来创建订单" }
+      end
+      return
+    end
+
     @order = Order.new(order_params)
 
     respond_to do |format|
@@ -88,6 +95,16 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:order_id])
     @order.status = params[:status]
     @order.save
+
+    if @order.status == 4
+      puts "aaaa"
+      @order.order_details.each do |order_detail|
+        product_feature = ProductFeature.find(order_detail.product_feature_id)
+        product = Product.find(product_feature.product_id)
+        product.sales = product.sales - order_detail.num
+        product.save
+      end
+    end
 
     respond_to do |format|
       format.html { redirect_to orders_url }

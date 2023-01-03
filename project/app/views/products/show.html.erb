@@ -71,7 +71,7 @@
             <% end %>
 
             <!-- 修改 / 下架 / 上架 -->
-            <% if (not user_signed_in?) || (user_signed_in? && current_user.status == 1) %>
+            <% if user_signed_in? && current_user.status == 1 %>
               <div class="col-md-10" style="margin-top: 15px">
                 <%= link_to "修改", edit_product_path(@product), class:"btn btn-primary pull-left" %>
                 <% if @product.status == 0 %>

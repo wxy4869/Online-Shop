@@ -17,7 +17,7 @@
       <div class="col-md-12 column">
         <div class="row clearfix" style="margin-bottom: 10px; border-bottom: 1px solid #EEEEEE;">
           <% if current_user.status == 1 %><div class="col-md-1 column text-center h4">用户</div><% end %>
-          <% if current_user.status == 0 %><div class="col-md-3 column text-center h4">商品</div><% else %><div class="col-md-1 column text-center h4">商品</div><% end %>
+          <% if current_user.status == 0 %><div class="col-md-3 column text-center h4">商品</div><% else %><div class="col-md-2 column text-center h4">商品</div><% end %>
           <div class="col-md-1 column text-center h4">收件人</div>
           <div class="col-md-2 column text-center h4">地址</div>
           <div class="col-md-1 column text-center h4">电话</div>
@@ -164,6 +164,7 @@
       <div class="modal-body">
         <div class="text-center" style="margin: 10px">扫描此二维码以付款，待后台工作人员确认后将发货，请耐心等待</div>
         <div style="text-align:center; margin: 10px"><%= image_tag("static/QR_code.jpg", style: "height: 175px;") %></div>
+        <div class="text-center text-warning" style="margin: 10px">如有问题请联系 18612345678</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-left: 20px">关闭</button>
