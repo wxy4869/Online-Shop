@@ -4,6 +4,7 @@ deploy-blog4:
     - rsync -arv --delete  --exclude="*.sqlite3" ./blog4 /
     - cd /blog4
     - bundle install
+    - rails db:drop
     - rails db:migrate
     - sv restart blog4
   only:
